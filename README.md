@@ -11,6 +11,7 @@
 - If the server accepts, the protocol switches to WebSocket.
 - Both client and server can now send messages anytime without re-requesting.
 
+**WebSocket Server (Node.js)**
 ```
 const WebSocket = require('ws');
 
@@ -38,6 +39,30 @@ wss.on('connection', (ws) => {
 });
 
 console.log("WebSocket server is running on ws://localhost:8080");
+```
+**WebSocket Client (Browser)**
+```
+<!DOCTYPE html>
+<html>
+<body>
+<script>
+  const socket = new WebSocket("ws://localhost:8080");
+
+  socket.onopen = () => {
+    console.log("Connected to server");
+    socket.send("Hello from client!");
+  };
+
+  socket.onmessage = (event) => {
+    console.log("Message from server:", event.data);
+  };
+
+  socket.onclose = () => {
+    console.log("Disconnected from server");
+  };
+</script>
+</body>
+</html>
 ```
 # HTTP:
 - Http is un-directional, stateless, half-duplex connection.
