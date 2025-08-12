@@ -11,6 +11,34 @@
 - If the server accepts, the protocol switches to WebSocket.
 - Both client and server can now send messages anytime without re-requesting.
 
+```
+const WebSocket = require('ws');
+
+// Create WebSocket server on port 8080
+const wss = new WebSocket.Server({ port: 8080 });
+
+wss.on('connection', (ws) => {
+  console.log('Client connected');
+
+  // Send a welcome message
+  ws.send('Hello! You are connected to the WebSocket server.');
+
+  // Handle incoming messages
+  ws.on('message', (message) => {
+    console.log(`Received: ${message}`);
+
+    // Send a response back
+    ws.send(`Server received: ${message}`);
+  });
+
+  // Handle client disconnect
+  ws.on('close', () => {
+    console.log('Client disconnected');
+  });
+});
+
+console.log("WebSocket server is running on ws://localhost:8080");
+```
 # HTTP:
 - Http is un-directional, stateless, half-duplex connection.
 - In http client have to request then only server send response. so whenever client request then only response will come, after req-res 1 cycle is comppleted for again get response client have to req.
